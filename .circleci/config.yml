@@ -16,13 +16,15 @@ jobs:
       - run:
           name: "Build Docker image"
           command: |
-            ./build_vyos.sh unibaktr https://downloads.vyos.io/release/legacy/1.1.8/vyos-1.1.8-amd64.iso
+            ./build_vyos.sh unibaktr https://downloads.vyos.io/release/legacy/$(cat VERSION)/vyos-$(cat VERSION)-amd64.iso
       - run:
           name: "Push Docker image"
           command: |
             docker image ls
+            docker tag vyos:latest vyos:$(cat VERSION)
             docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
-            docker push unibaktr/vyos
+            docker push unibaktr/vyos:$(cat VERSION)
+            docker push unibaktr/vyos:latest
 
 workflows:
   build:
