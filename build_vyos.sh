@@ -101,16 +101,16 @@ tarFile="$dir/rootfs.tar.xz"
 touch "$tarFile"
 sudo tar --numeric-owner -Jcaf "$tarFile" -C "$rootfsDir" --transform='s,^./,,' .
 echo >&2 "+ cat > '$dir/Dockerfile'"
-cat > "$dir/Dockerfile" <<'EOF'
+cat > "$dir/Dockerfile" <<EOF
 FROM debian:jessie-slim
 ADD rootfs.tar.xz /
 ENTRYPOINT ["/sbin/init"]
 
-LABEL de.uniba.ktr.vyos.version=$VERSION \
+LABEL de.uniba.ktr.vyos.version=$(cat VERSION) \
       de.uniba.ktr.vyos.name="VyOS" \
       de.uniba.ktr.vyos.docker.cmd="sudo kathara vstart -n vyatta --eth 0:A 1:B 2:C 3:D 4:E --privileged --shell vbash -i unibaktr/vyos:$(cat VERSION)" \
       de.uniba.ktr.vyos.vendor="Marcel Grossmann" \
-      de.uniba.ktr.vyos.architecture=amd64\
+      de.uniba.ktr.vyos.architecture=amd64 \
       de.uniba.ktr.vyos.vcs-ref=$(git rev-parse --short HEAD)) \
       de.uniba.ktr.vyos.vcs-url=$(git config --get remote.origin.url) \
       de.uniba.ktr.vyos.build-date=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
