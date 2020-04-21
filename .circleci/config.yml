@@ -30,9 +30,9 @@ workflows:
   build:
     jobs:
       - build_vyos
-#          filters:
-#              tags:
-#                only: /.*/
+          filters:
+              tags:
+                only: /.*/
 
 
       # # recommended linux image - includes Ubuntu 16.04, docker 18.09.3, docker-compose 1.23.1
