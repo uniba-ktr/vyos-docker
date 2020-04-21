@@ -30,8 +30,7 @@ jobs:
     steps:
       - run:
           name: "Call microbadger's webhook"
-          run: |
-          curl -X POST https://hooks.microbadger.com/images/unibaktr/vyos/RBvywgfGUo1U_aZxVUorsr7l8nM=
+          command: curl -X POST https://hooks.microbadger.com/images/unibaktr/vyos/RBvywgfGUo1U_aZxVUorsr7l8nM=
 
 tag_filter: &tag_filter
   filters:
@@ -46,4 +45,4 @@ workflows:
       - badge:
           requires:
             - build_vyos
-          <<: * tag_filter
+          <<: *tag_filter
