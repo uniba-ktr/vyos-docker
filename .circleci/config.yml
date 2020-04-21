@@ -20,8 +20,8 @@ jobs:
       - run:
           name: "Push Docker image"
           command: |
+            docker tag unibaktr/vyos:latest unibaktr/vyos:$(cat VERSION)
             docker image ls
-            docker tag vyos:latest vyos:$(cat VERSION)
             docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
             docker push unibaktr/vyos:$(cat VERSION)
             docker push unibaktr/vyos:latest
