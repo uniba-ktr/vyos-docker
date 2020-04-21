@@ -1,3 +1,5 @@
+[![](https://images.microbadger.com/badges/version/unibaktr/vyos.svg)](https://hub.docker.com/r/unibaktr/vyos)
+[![](https://images.microbadger.com/badges/image/unibaktr/vyos.svg)](https://hub.docker.com/r/unibaktr/vyos)
 [![uniba-ktr](https://circleci.com/gh/uniba-ktr/vyos-docker.svg?style=svg)](https://hub.docker.com/r/unibaktr/vyos)
 
 ### vyos-docker

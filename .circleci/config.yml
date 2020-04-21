@@ -16,7 +16,7 @@ jobs:
       - run:
           name: "Build Docker image"
           command: |
-            ./build_vyos.sh unibaktr https://downloads.vyos.io/release/legacy/$(cat VERSION)/vyos-$(cat VERSION)-amd64.iso
+            ./build_vyos.sh unibaktr https://downloads.vyos.io/release/legacy/$(cat VERSION)/vyos-$(cat VERSION)-1-amd64.iso
       - run:
           name: "Push Docker image"
           command: |
@@ -25,11 +25,25 @@ jobs:
             docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
             docker push unibaktr/vyos:$(cat VERSION)
             docker push unibaktr/vyos:latest
+  badge:
+    machine: true
+    steps:
+      - run:
+          name: "Call microbadger's webhook"
+          run: |
+          curl -X POST https://hooks.microbadger.com/images/unibaktr/vyos/RBvywgfGUo1U_aZxVUorsr7l8nM=
+
+tag_filter: &tag_filter
+  filters:
+    tags:
+      only: /.*/
 
 workflows:
   build:
     jobs:
       - build_vyos:
-          filters:
-              tags:
-                only: /.*/
+          <<: *tag_filter
+      - badge:
+          requires:
+            - build_vyos
+          <<: * tag_filter
