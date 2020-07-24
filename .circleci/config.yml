@@ -20,30 +20,10 @@ jobs:
       - run:
           name: "Push Docker image"
           command: |
+            docker image tag unibaktr/vyos:latest unibaktr/vyos:$(cat VERSION)
             docker image ls
             docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
             docker push unibaktr/vyos:$(cat VERSION)
-
-  build_vyos_rolling:
-    working_directory: ~/vyos-docker
-    machine:
-      image: ubuntu-1604:201903-01
-    steps:
-      - checkout
-      - run:
-          name: "Make it executable"
-          command: |
-            chmod +x build_vyos.sh
-      # Commands run in a Linux virtual machine environment
-      - run:
-          name: "Build Docker image"
-          command: |
-            ./build_vyos.sh unibaktr https://downloads.vyos.io/rolling/current/amd64/vyos-rolling-latest.iso
-      - run:
-          name: "Push Docker image"
-          command: |
-            docker image ls
-            docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
             docker push unibaktr/vyos:latest
 
   badge:
@@ -63,7 +43,7 @@ workflows:
     jobs:
       - build_vyos:
           <<: *tag_filter
-      - build_vyos_rolling
       - badge:
+          <<: *tag_filter
           requires:
-            - build_vyos_rolling
+            - build_vyos
