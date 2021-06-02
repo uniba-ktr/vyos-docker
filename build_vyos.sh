@@ -115,7 +115,7 @@ chmod +x "$dir/vyos"
 
 echo >&2 "+ cat > '$dir/Dockerfile'"
 cat > "$dir/Dockerfile" <<EOF
-FROM debian:jessie-slim
+FROM scratch
 ADD rootfs.tar.xz /
 ADD vyos /bin/vyos
 ENTRYPOINT ["/sbin/init"]
