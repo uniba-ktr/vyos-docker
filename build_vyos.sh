@@ -91,7 +91,8 @@ sudo sed -i '/interfaces {/ a    ethernet eth0 {\n }\n ethernet eth1 {\n }\n eth
 
 # Remove Linux Kernel
 linux_image=$(sudo chroot ${inst_root} dpkg -l | grep linux-image | awk '{print $2}')
-sudo chroot ${inst_root} apt-get -y remove --purge linux-firmware ${linux_image}
+sudo chroot ${inst_root} apt-get -y remove --purge ${linux_image}
+sudo chroot ${inst_root} apt-get -y remove --purge linux-firmware | true
 sudo chroot ${inst_root} rm -rf lib/modules/*
 
 ## ---- Generate Docker image ----
