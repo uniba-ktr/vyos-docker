@@ -16,7 +16,7 @@ jobs:
       - run:
           name: "Build Docker image"
           command: |
-            ./build_vyos.sh unibaktr https://downloads.vyos.io/rolling/$(cat VERSION)/amd64/vyos-$(cat VERSION)-latest.iso
+            ./build_vyos.sh unibaktr https://downloads.vyos.io/rolling/$(cat VERSION)/amd64/vyos-rolling-latest.iso
       - run:
           name: "Push Docker image"
           command: |
